@@ -3,7 +3,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.0</TargetFramework>
-    <StartupObject>csharpcore.Program</StartupObject>
-    <RootNamespace>csharpcore</RootNamespace>
+    <StartupObject>GildedRose.Program</StartupObject>
+    <RootNamespace>GildedRose</RootNamespace>
   </PropertyGroup>
 </Project>

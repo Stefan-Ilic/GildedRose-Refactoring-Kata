@@ -1,6 +1,4 @@
-﻿// ReSharper disable once CheckNamespace
-
-namespace GildedRose
+﻿namespace csharpcore
 {
     public class Item
     {

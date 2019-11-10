@@ -8,4 +8,4 @@ dotnet sln GildedRose.sln add GildedRose/csharpcore.csproj
 dotnet new xunit -o GildedRoseTest
 dotnet sln GildedRose.sln add GildedRoseTest/GildedRoseTest.csproj
 ```
-
+dann standards anpassen wie varabilen namem und field namen

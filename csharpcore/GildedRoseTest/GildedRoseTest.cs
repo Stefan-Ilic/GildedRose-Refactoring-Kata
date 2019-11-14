@@ -91,5 +91,35 @@ namespace GildedRoseTest
             item.Quality.ShouldBe(4);
             item.SellIn.ShouldBe(3);
         }
+        
+        [Theory]
+        [InlineData(11, 4, 5)]
+        [InlineData(11, 50, 50)]
+        [InlineData(10, 4, 6)]
+        [InlineData(10, 50, 50)]
+        [InlineData(9, 4, 6)]
+        [InlineData(5, 4, 7)]
+        [InlineData(5, 50, 50)]
+        [InlineData(4, 4, 7)]
+        public void BackStagePasses_IncreasesQuality(int sellIn, int quality, int expectedQuality)
+        {
+            var item = new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = sellIn, Quality = quality  };
+            var gildedRose = new GildedRose.GildedRose(new[] {item});
+            
+            gildedRose.UpdateQuality();
+            
+            item.Quality.ShouldBe(expectedQuality);
+        }
+        
+        [Fact]
+        public void BackStagePasses_QualityZeroAfterConcert()
+        {
+            var item = new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 0, Quality = 5  };
+            var gildedRose = new GildedRose.GildedRose(new[] {item});
+            
+            gildedRose.UpdateQuality();
+            
+            item.Quality.ShouldBe(0);
+        }
     }
 }

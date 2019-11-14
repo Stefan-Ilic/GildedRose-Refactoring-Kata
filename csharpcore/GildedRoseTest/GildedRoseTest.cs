@@ -70,6 +70,17 @@ namespace GildedRoseTest
         }
         
         [Fact]
+        public void AgedBrieNegativeSellIn_IncreasesByTwo()
+        {
+            var item = new Item { Name = "Aged Brie", Quality = 4, SellIn = -1 };
+            var gildedRose = new GildedRose.GildedRose(new[] {item});
+            
+            gildedRose.UpdateQuality();
+            
+            item.Quality.ShouldBe(6);
+        }
+        
+        [Fact]
         public void AgedBrie_DoesNotIncreaseBeyond50()
         {
             var item = new Item { Name = "Aged Brie", Quality = 50, SellIn = 3 };

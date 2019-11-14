@@ -58,5 +58,16 @@ namespace GildedRoseTest
         //     // If altering Item was allowed I would add this test
         //     Should.Throw<ArgumentException>(() => new Item { Quality = -1  });
         // }
+        
+        [Fact]
+        public void AgedBrie_IncreasesQuality()
+        {
+            var item = new Item { Name = "Aged Brie", Quality = 4, SellIn = 3 };
+            var gildedRose = new GildedRose.GildedRose(new[] {item});
+            
+            gildedRose.UpdateQuality();
+            
+            item.Quality.ShouldBe(5);
+        }
     }
 }

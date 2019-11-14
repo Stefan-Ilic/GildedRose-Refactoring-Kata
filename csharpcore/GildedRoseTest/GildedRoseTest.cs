@@ -1,5 +1,4 @@
 ﻿
-using System;
 using GildedRose;
 using Shouldly;
 using Xunit;
@@ -68,6 +67,29 @@ namespace GildedRoseTest
             gildedRose.UpdateQuality();
             
             item.Quality.ShouldBe(5);
+        }
+        
+        [Fact]
+        public void AgedBrie_DoesNotIncreaseBeyond50()
+        {
+            var item = new Item { Name = "Aged Brie", Quality = 50, SellIn = 3 };
+            var gildedRose = new GildedRose.GildedRose(new[] {item});
+            
+            gildedRose.UpdateQuality();
+            
+            item.Quality.ShouldBe(50);
+        }
+        
+        [Fact]
+        public void Sulfuras_NeverChanges()
+        {
+            var item = new Item { Name = "Sulfuras, Hand of Ragnaros", Quality = 4, SellIn = 3 };
+            var gildedRose = new GildedRose.GildedRose(new[] {item});
+            
+            gildedRose.UpdateQuality();
+            
+            item.Quality.ShouldBe(4);
+            item.SellIn.ShouldBe(3);
         }
     }
 }

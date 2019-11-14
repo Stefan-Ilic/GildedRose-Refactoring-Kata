@@ -50,14 +50,7 @@ namespace GildedRoseTest
             
             item.Quality.ShouldBe(0);
         }
-        
-        // [Fact]
-        // public void ItemQuality_CannotBeNegative()
-        // {
-        //     // If altering Item was allowed I would add this test
-        //     Should.Throw<ArgumentException>(() => new Item { Quality = -1  });
-        // }
-        
+
         [Fact]
         public void AgedBrie_IncreasesQuality()
         {

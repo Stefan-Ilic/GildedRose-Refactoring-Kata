@@ -1,6 +1,6 @@
 ﻿
-using System.Collections.Generic;
 using GildedRose;
+using Shouldly;
 using Xunit;
 
 namespace GildedRoseTest
@@ -8,12 +8,25 @@ namespace GildedRoseTest
     public class GildedRoseTest
     {
         [Fact]
-        public void foo()
+        public void NormalItem_QualityLoweredByOne()
         {
-            IList<Item> items = new List<Item> {new Item {Name = "foo", SellIn = 0, Quality = 0}};
-            var app = new GildedRose.GildedRose(items);
-            app.UpdateQuality();
-            Assert.Equal("fixme", items[0].Name);
+            var item = new Item { Name = "Item", Quality = 3, SellIn = 4 };
+            var gildedRose = new GildedRose.GildedRose(new[] {item});
+            
+            gildedRose.UpdateQuality();
+            
+            item.Quality.ShouldBe(2);
+        }
+        
+        [Fact]
+        public void NormalItem_SellInLoweredByOne()
+        {
+            var item = new Item { Name = "Item", Quality = 3, SellIn = 4 };
+            var gildedRose = new GildedRose.GildedRose(new[] {item});
+            
+            gildedRose.UpdateQuality();
+            
+            item.SellIn.ShouldBe(3);
         }
     }
 }

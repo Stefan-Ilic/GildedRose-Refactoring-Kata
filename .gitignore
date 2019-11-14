@@ -9,3 +9,5 @@ csharpcore/GildedRose/.DS_Store
 csharpcore/.sonarqube
 csharpcore/GildedRoseTest/.DS_Store
 csharpcore/GildedRoseTest/coverage.opencover.xml
+csharpcore/reports
+csharpcore/coverage.opencover.xml

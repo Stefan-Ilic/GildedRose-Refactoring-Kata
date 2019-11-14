@@ -1,4 +1,5 @@
 ﻿
+using System;
 using GildedRose;
 using Shouldly;
 using Xunit;
@@ -39,5 +40,23 @@ namespace GildedRoseTest
             
             item.Quality.ShouldBe(1);
         }
+        
+        [Fact]
+        public void ItemQuality_CannotSinkBelowZero()
+        {
+            var item = new Item { Name = "Item", Quality = 0, SellIn = 3 };
+            var gildedRose = new GildedRose.GildedRose(new[] {item});
+            
+            gildedRose.UpdateQuality();
+            
+            item.Quality.ShouldBe(0);
+        }
+        
+        // [Fact]
+        // public void ItemQuality_CannotBeNegative()
+        // {
+        //     // If altering Item was allowed I would add this test
+        //     Should.Throw<ArgumentException>(() => new Item { Quality = -1  });
+        // }
     }
 }

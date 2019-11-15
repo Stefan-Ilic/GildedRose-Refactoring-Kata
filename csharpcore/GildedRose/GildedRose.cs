@@ -32,9 +32,13 @@ namespace GildedRose
             }
         }
 
-        private static void EnsureQualityIsBetween(Item item, int lowerBound, int upperBound)
+        private bool ItemHasSpecialRules(Item item) => _specialItemRules.Select(x => x.ItemName).Contains(item.Name);
+
+        private void ApplySpecialItemRules(Item item)
         {
-            item.Quality = Math.Clamp(item.Quality, lowerBound, upperBound);
+            var ruleSet = _specialItemRules.Single(x => x.ItemName == item.Name);
+
+            ruleSet.ApplySpecialRules(item);
         }
 
         private static void ApplyDefaultRules(Item item)
@@ -51,13 +55,9 @@ namespace GildedRose
             item.SellIn--;
         }
 
-        private void ApplySpecialItemRules(Item item)
+        private static void EnsureQualityIsBetween(Item item, int lowerBound, int upperBound)
         {
-            var ruleSet = _specialItemRules.Single(x => x.ItemName == item.Name);
-
-            ruleSet.ApplySpecialRules(item);
+            item.Quality = Math.Clamp(item.Quality, lowerBound, upperBound);
         }
-
-        private bool ItemHasSpecialRules(Item item) => _specialItemRules.Select(x => x.ItemName).Contains(item.Name);
     }
 }

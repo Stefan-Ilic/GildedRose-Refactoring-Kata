@@ -1,47 +1,46 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace GildedRose
 {
     public class GildedRose
     {
         private readonly IList<Item> _items;
-        private readonly IEnumerable<SpecialItemRule> _specialItemRules;
+        private readonly IDictionary<string, Action<Item>> _specialItemRuleSets;
 
-        public GildedRose(IList<Item> items, IEnumerable<SpecialItemRule> specialItemRules = null)
+        public GildedRose(IList<Item> items, IDictionary<string, Action<Item>> specialItemRuleSets = null)
         {
             _items = items;
-            _specialItemRules = specialItemRules ?? new DefaultSpecialItemRulesCollection();
+            _specialItemRuleSets = specialItemRuleSets ?? new DefaultSpecialItemRuleSetDictionary();
         }
 
         public void UpdateQuality()
         {
             foreach (var item in _items)
             {
-                if (ItemHasSpecialRules(item))
+                if (ItemHasSpecialRuleSet(item))
                 {
-                    ApplySpecialItemRules(item);
+                    ApplySpecialItemRuleSet(item);
                 }
                 else
                 {
-                    ApplyDefaultRules(item);
+                    ApplyDefaultRuleSet(item);
                 }
 
                 EnsureQualityIsBetween(item, 0, 50);
             }
         }
 
-        private bool ItemHasSpecialRules(Item item) => _specialItemRules.Select(x => x.ItemName).Contains(item.Name);
+        private bool ItemHasSpecialRuleSet(Item item) => _specialItemRuleSets.ContainsKey(item.Name);
 
-        private void ApplySpecialItemRules(Item item)
+        private void ApplySpecialItemRuleSet(Item item)
         {
-            var ruleSet = _specialItemRules.Single(x => x.ItemName == item.Name);
+            var ruleSet = _specialItemRuleSets[item.Name];
 
-            ruleSet.ApplySpecialRules(item);
+            ruleSet.Invoke(item);
         }
 
-        private static void ApplyDefaultRules(Item item)
+        private static void ApplyDefaultRuleSet(Item item)
         {
             if (item.SellIn > 0)
             {

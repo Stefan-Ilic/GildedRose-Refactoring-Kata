@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace GildedRose
 {
+    /// <summary>
+    /// Services used to update a collection of <see cref="Item"/> every night.
+    /// </summary>
     public class GildedRose
     {
         private readonly IList<Item> _items;
@@ -14,6 +17,10 @@ namespace GildedRose
             _specialItemRuleSets = specialItemRuleSets ?? new DefaultSpecialItemRuleSetDictionary();
         }
 
+        /// <summary>
+        /// Updates <see cref="_items"/> according to the default ruleset
+        /// and the special rule sets supplied through <see cref="_specialItemRuleSets"/>.
+        /// </summary>
         public void UpdateQuality()
         {
             foreach (var item in _items)

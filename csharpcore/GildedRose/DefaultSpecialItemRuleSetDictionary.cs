@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 namespace GildedRose
 {
+    /// <summary>
+    /// The default ruleset that is applied if no other ruleset is supplied to <see cref="GildedRose"/>.
+    /// </summary>
     public class DefaultSpecialItemRuleSetDictionary : IDictionary<string, Action<Item>>
     {
         private readonly IDictionary<string, Action<Item>> _dictionary = new Dictionary<string, Action<Item>>
